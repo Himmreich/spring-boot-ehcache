@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:jdbcdslog:h2:file:C:\Temp\book.db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;targetDriver=org.h2.Driver
+    username: h2
+    password:
+    driver-class-name: org.jdbcdslog.DriverLoggingProxy
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  cache:
+   jcache:
+     config: classpath:ehcache.xml

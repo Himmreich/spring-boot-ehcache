@@ -1,0 +1,36 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+
+    <persistence directory="${java.io.tmpdir}/book-cache-data"/>
+    <event-dispatch thread-pool="events-pool"/>
+
+    <cache-template name="default-logger-template">
+        <listeners dispatcher-thread-pool="listeners-pool">
+            <listener>
+                <class>tk.ora.cache.config.CacheEventLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>UNORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+                <events-to-fire-on>EVICTED</events-to-fire-on>
+                <events-to-fire-on>REMOVED</events-to-fire-on>
+                <events-to-fire-on>UPDATED</events-to-fire-on>
+            </listener>
+        </listeners>
+        <resources>
+            <heap>500</heap>
+            <offheap unit="MB">10</offheap>
+            <disk persistent="true" unit="MB">100</disk>
+        </resources>
+    </cache-template>
+
+    <cache alias="book-cache-data" uses-template="default-logger-template">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>tk.ora.domain.dto.BookDto</value-type>
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+    </cache>
+
+</config>
