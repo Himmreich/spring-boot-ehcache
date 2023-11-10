@@ -1,6 +1,7 @@
 package tk.ora.cache.service;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -18,10 +19,10 @@ import tk.ora.cache.repo.BookRepository;
 @Service
 @Slf4j
 @CacheConfig(cacheNames = {"book-cache-data"})
+@RequiredArgsConstructor
 public class BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Cacheable
     public BookDto findBookByTitle(@NonNull final String title) {

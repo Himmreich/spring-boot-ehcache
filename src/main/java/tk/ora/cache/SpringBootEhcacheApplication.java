@@ -32,7 +32,6 @@ public class SpringBootEhcacheApplication implements CommandLineRunner {
         newBookDto.setYear(2002);
         Book detachedBook = BookMapper.bookDtoToDomain(newBookDto);
         bookService.saveBook(detachedBook);
-        System.out.println(detachedBook.getId());
 
         //Try cache
         log.info("Load object from database...");
